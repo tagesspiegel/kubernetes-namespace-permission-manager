@@ -20,7 +20,7 @@ func TestParseRoleBindingSubjects(t *testing.T) {
 		{
 			name: "simple",
 			args: args{
-				rulesStr: "kind=ServiceAccount,name=foo,namespace=bar",
+				rulesStr: "kind=ServiceAccount;name=foo;namespace=bar",
 			},
 			want: []rbacv1.Subject{
 				{
@@ -34,7 +34,7 @@ func TestParseRoleBindingSubjects(t *testing.T) {
 		{
 			name: "simple with apiGroup",
 			args: args{
-				rulesStr: "kind=Role,name=foo,namespace=bar,apiGroup=rbac.authorization.k8s.io",
+				rulesStr: "kind=Role;name=foo;namespace=bar;apiGroup=rbac.authorization.k8s.io",
 			},
 			want: []rbacv1.Subject{
 				{
@@ -49,7 +49,7 @@ func TestParseRoleBindingSubjects(t *testing.T) {
 		{
 			name: "multiple",
 			args: args{
-				rulesStr: "kind=ServiceAccount,name=foo,namespace=bar;kind=ServiceAccount,name=foo2,namespace=bar2",
+				rulesStr: "kind=ServiceAccount;name=foo;namespace=bar,kind=ServiceAccount;name=foo2;namespace=bar2",
 			},
 			want: []rbacv1.Subject{
 				{
@@ -68,7 +68,7 @@ func TestParseRoleBindingSubjects(t *testing.T) {
 		{
 			name: "multiple with apiGroup",
 			args: args{
-				rulesStr: "kind=Role,apiGroup=rbac.authorization.k8s.io,name=foo,namespace=bar;kind=ServiceAccount,name=foo2,namespace=bar2",
+				rulesStr: "kind=Role;apiGroup=rbac.authorization.k8s.io;name=foo;namespace=bar,kind=ServiceAccount;name=foo2;namespace=bar2",
 			},
 			want: []rbacv1.Subject{
 				{
@@ -88,7 +88,7 @@ func TestParseRoleBindingSubjects(t *testing.T) {
 		{
 			name: "invalid key",
 			args: args{
-				rulesStr: "kind=ServiceAccount,name=foo,namespace=bar;kind=ServiceAccount,name=foo2,namespace=bar2;kind=ServiceAccount,name=foo3,namespace=bar3,invalid=foo",
+				rulesStr: "kind=ServiceAccount;name=foo;namespace=bar,kind=ServiceAccount;name=foo2;namespace=bar2,kind=ServiceAccount;name=foo3;namespace=bar3;invalid=foo",
 			},
 			want:    nil,
 			wantErr: true,
@@ -96,7 +96,7 @@ func TestParseRoleBindingSubjects(t *testing.T) {
 		{
 			name: "invalid amount of entries",
 			args: args{
-				rulesStr: "kind=ServiceAccount=ServiceAccount,name=foo,namespace=bar;kind=ServiceAccount,name=foo2,namespace=bar2;kind=ServiceAccount,name=foo3,namespace=bar3,invalid=foo",
+				rulesStr: "kind=ServiceAccount=ServiceAccount;name=foo;namespace=bar,kind=ServiceAccount;name=foo2;namespace=bar2,kind=ServiceAccount;name=foo3;namespace=bar3;invalid=foo",
 			},
 			want:    nil,
 			wantErr: true,

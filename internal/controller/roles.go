@@ -30,18 +30,18 @@ const (
 //
 // Example:
 //
-//	rules, err := ParseRoleBindingSubjects("kind=ServiceAccount,name=foo,namespace=bar;kind=ServiceAccount,name=foo2,namespace=bar2")
+//	rules, err := ParseRoleBindingSubjects("kind=ServiceAccount;name=foo;namespace=bar,kind=ServiceAccount;name=foo2;namespace=bar2")
 //	if err != nil {
 //		// handle error
 //	}
 //	fmt.Println(rules) // [{Kind:ServiceAccount Name:foo Namespace:bar} {Kind:ServiceAccount Name:foo2 Namespace:bar2}]
 func ParseRoleBindingSubjects(rulesStr string) ([]rbacv1.Subject, error) {
 	var subjects []rbacv1.Subject
-	rules := strc.Properties(rulesStr)
+	rules := strc.Array(rulesStr)
 	for roleIndex, rule := range rules {
 		subject := rbacv1.Subject{}
-		parseByComma := strc.Array(rule)
-		for keyIndex, item := range parseByComma {
+		properties := strc.Properties(rule)
+		for keyIndex, item := range properties {
 			key, value, err := strc.KeyValue(item)
 			if err != nil {
 				return nil, err
