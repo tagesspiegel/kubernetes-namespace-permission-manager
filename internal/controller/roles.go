@@ -36,7 +36,7 @@ const (
 //	}
 //	fmt.Println(rules) // [{Kind:ServiceAccount Name:foo Namespace:bar} {Kind:ServiceAccount Name:foo2 Namespace:bar2}]
 func ParseRoleBindingSubjects(rulesStr string) ([]rbacv1.Subject, error) {
-	var subjects []rbacv1.Subject
+	subjects := []rbacv1.Subject{}
 	rules := strc.Array(rulesStr)
 	for roleIndex, rule := range rules {
 		subject := rbacv1.Subject{}
