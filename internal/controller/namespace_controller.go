@@ -110,6 +110,9 @@ func (r *NamespaceReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 			return ctrl.Result{}, nil
 		}
 		logx.V(80).Info("result for reconciliation for role binding", "result", rslt)
+		roleRef.Kind = "Role"
+		roleRef.APIGroup = "rbac.authorization.k8s.io"
+		roleRef.Name = role.GetName()
 	}
 
 	rbSubjects, ok := ns.Annotations[AnnotationNamespaceRoleBindingSubjects]
