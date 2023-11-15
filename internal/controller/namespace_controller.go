@@ -36,7 +36,6 @@ type NamespaceReconciler struct {
 
 //+kubebuilder:rbac:groups=,resources=namespaces,verbs=get;list;watch
 //+kubebuilder:rbac:groups=,resources=namespaces/status,verbs=get
-//+kubebuilder:rbac:groups=,resources=namespaces/finalizers
 //+kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=roles,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=roles,verbs=get;list;watch;create;update;patch;delete
 
