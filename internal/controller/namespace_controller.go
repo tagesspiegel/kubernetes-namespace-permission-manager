@@ -42,6 +42,8 @@ type NamespaceReconciler struct {
 
 const (
 	LabelNamespacePermissionControl = "ns.tagesspiegel.de/permission-control"
+	LabelManagedBy                  = "app.kubernetes.io/managed-by"
+	LabelNamespaceName              = "ns.tagesspiegel.de/source-namespace"
 
 	AnnotationNamespaceRoleBindingSubjects = "ns.tagesspiegel.de/rolebinding-subjects"
 	AnnotationNamespaceRoleBindingRoleRef  = "ns.tagesspiegel.de/rolebinding-roleref"
@@ -94,6 +96,10 @@ func (r *NamespaceReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 			ObjectMeta: ctrl.ObjectMeta{
 				Name:      ns.Name,
 				Namespace: ns.Name,
+				Labels: map[string]string{
+					LabelManagedBy:     "namespace-permission-controller",
+					LabelNamespaceName: ns.Name,
+				},
 			},
 		}
 		rslt, err := ctrl.CreateOrUpdate(ctx, r.Client, role, func() error {
@@ -120,6 +126,10 @@ func (r *NamespaceReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 			ObjectMeta: ctrl.ObjectMeta{
 				Name:      ns.Name,
 				Namespace: ns.Name,
+				Labels: map[string]string{
+					LabelManagedBy:     "namespace-permission-controller",
+					LabelNamespaceName: ns.Name,
+				},
 			},
 		}
 		rslt, err := ctrl.CreateOrUpdate(ctx, r.Client, rb, func() error {
