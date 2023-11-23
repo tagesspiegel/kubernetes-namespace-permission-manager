@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: my-first-test
+  labels:
+    ns.tagesspiegel.de/permission-control: "manage"
+  annotations:
+    ns.tagesspiegel.de/rolebinding-subjects: kind=ServiceAccount;name=default,kind=User;name=default,kind=Group;name=default
+    ns.tagesspiegel.de/rolebinding-roleref: kind=Role;apiGroup=rbac.authorization.k8s.io;name=namespace-admin
