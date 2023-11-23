@@ -32,19 +32,12 @@ func TestParseRoleBindingSubjects(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "simple with apiGroup",
+			name: "simple with apiGroup expect failure",
 			args: args{
 				rulesStr: "kind=Role;name=foo;namespace=bar;apiGroup=rbac.authorization.k8s.io",
 			},
-			want: []rbacv1.Subject{
-				{
-					APIGroup:  "rbac.authorization.k8s.io",
-					Kind:      "Role",
-					Name:      "foo",
-					Namespace: "bar",
-				},
-			},
-			wantErr: false,
+			want:    nil,
+			wantErr: true,
 		},
 		{
 			name: "multiple",
@@ -66,24 +59,12 @@ func TestParseRoleBindingSubjects(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "multiple with apiGroup",
+			name: "multiple with apiGroup expect failure",
 			args: args{
 				rulesStr: "kind=Role;apiGroup=rbac.authorization.k8s.io;name=foo;namespace=bar,kind=ServiceAccount;name=foo2;namespace=bar2",
 			},
-			want: []rbacv1.Subject{
-				{
-					APIGroup:  "rbac.authorization.k8s.io",
-					Kind:      "Role",
-					Name:      "foo",
-					Namespace: "bar",
-				},
-				{
-					Kind:      "ServiceAccount",
-					Name:      "foo2",
-					Namespace: "bar2",
-				},
-			},
-			wantErr: false,
+			want:    nil,
+			wantErr: true,
 		},
 		{
 			name: "invalid key",

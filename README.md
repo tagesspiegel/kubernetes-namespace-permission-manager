@@ -8,7 +8,7 @@ In order to manage the permissions to the namespaces, you need to decide if you 
 
 | Annotation | Description |
 |---|---|
-| `ns.tagesspiegel.de/rolebinding-subjects` | A comma separated list of subjects that should be bound to the role. We expect key=value pairs in every array index seperated by semicolons. Example: `a=b;c=d,a=c;b=d`. Valid property keys are: `kind`, `apiGroup`, `name`, `namespace`. |
+| `ns.tagesspiegel.de/rolebinding-subjects` | A comma separated list of subjects that should be bound to the role. We expect key=value pairs in every array index seperated by semicolons. Example: `a=b;c=d,a=c;b=d`. Valid property keys are: `kind`, `name`, `namespace`. |
 | `ns.tagesspiegel.de/rolebinding-roleref` | Semicolon seperated key=value pairs. Example: `a=b;c=d,a=c;b=d`. Valid property keys are: `kind`, `apiGroup`, `name`. |
 | `ns.tagesspiegel.de/custom-role-rules` | A two colon `::` seperated list of policy properties, attached to the custom Role. Every array entry is expected to have the following key=value specifications: </br>key=`verbs` a comma seperated list of policy verbs (like: `get`, `list`, `watch`, `patch`, `update`, `delete`, `create`, ...)</br>key=`apiGroups` as list of comma seperated apis to grant access to</br>key=`resources` a list of comma seperated api resources to grant access to</br>key=`resourceNames` (optional) as list of comma seperated resources to grant access to.</br></br>Has priority over `ns.tagesspiegel.de/rolebinding-roleref` |
 

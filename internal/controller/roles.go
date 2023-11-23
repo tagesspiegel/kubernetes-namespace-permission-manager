@@ -49,8 +49,6 @@ func ParseRoleBindingSubjects(rulesStr string) ([]rbacv1.Subject, error) {
 			switch key {
 			case KeyKind:
 				subject.Kind = value
-			case KeyAPIGroup:
-				subject.APIGroup = value
 			case KeyName:
 				subject.Name = value
 			case KeyNamespace:
