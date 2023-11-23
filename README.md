@@ -12,6 +12,12 @@ In order to manage the permissions to the namespaces, you need to decide if you 
 | `ns.tagesspiegel.de/rolebinding-roleref` | Semicolon seperated key=value pairs. Example: `a=b;c=d,a=c;b=d`. Valid property keys are: `kind`, `apiGroup`, `name`. |
 | `ns.tagesspiegel.de/custom-role-rules` | A two colon `::` seperated list of policy properties, attached to the custom Role. Every array entry is expected to have the following key=value specifications: </br>key=`verbs` a comma seperated list of policy verbs (like: `get`, `list`, `watch`, `patch`, `update`, `delete`, `create`, ...)</br>key=`apiGroups` as list of comma seperated apis to grant access to</br>key=`resources` a list of comma seperated api resources to grant access to</br>key=`resourceNames` (optional) as list of comma seperated resources to grant access to.</br></br>Has priority over `ns.tagesspiegel.de/rolebinding-roleref` |
 
+Since these annotations are not in charge of instrumenting the controller to listen to the namespace, you need to add the following label to the namespace:
+
+| Label | Description |
+|---|---|
+| `ns.tagesspiegel.de/permission-control` | The value of this label is not important. It is just used to identify the namespaces that should be managed by the controller. |
+
 ## Getting Started
 
 ### Prerequisites
