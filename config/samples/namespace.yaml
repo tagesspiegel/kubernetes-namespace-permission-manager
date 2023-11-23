@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: my-first-test
+  name: with-roleref
   labels:
     ns.tagesspiegel.de/permission-control: "manage"
   annotations:

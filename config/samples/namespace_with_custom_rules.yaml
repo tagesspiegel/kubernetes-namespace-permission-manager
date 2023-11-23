@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: with-custom-rules
+  name: with-custom-role
   labels:
     ns.tagesspiegel.de/permission-control: "manage"
   annotations:
