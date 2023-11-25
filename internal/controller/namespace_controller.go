@@ -34,10 +34,7 @@ type NamespaceReconciler struct {
 	Scheme *runtime.Scheme
 }
 
-//+kubebuilder:rbac:groups=core,resources=namespaces,verbs=get;list;watch
-//+kubebuilder:rbac:groups=core,resources=namespaces/status,verbs=get
-//+kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=roles,verbs=get;list;watch;create;update;patch;delete
-//+kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=rolebindings,verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups="*",resources="*",verbs="*"
 
 const (
 	LabelNamespacePermissionControl = "ns.tagesspiegel.de/permission-control"
