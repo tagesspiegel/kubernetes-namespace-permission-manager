@@ -1,8 +1,9 @@
 
 # Image URL to use all building/pushing image targets
-IMG ?= tagesspiegel/kubernetes-namespace-permission-manager:latest
+IMG ?= tagesspiegel/kubernetes-namespace-permission-manager:dev
 # ENVTEST_K8S_VERSION refers to the version of kubebuilder assets to be downloaded by envtest binary.
 ENVTEST_K8S_VERSION = 1.28.0
+KIND_CLUSTER_NAME ?= kubernetes-namespace-permission-manager
 
 # Get the currently used golang install path (in GOPATH/bin, unless GOBIN is set)
 ifeq (,$(shell go env GOBIN))
@@ -64,7 +65,16 @@ vet: ## Run go vet against code.
 test: manifests generate fmt vet envtest ## Run tests.
 	KUBEBUILDER_ASSETS="$(shell $(ENVTEST) use $(ENVTEST_K8S_VERSION) --bin-dir $(LOCALBIN) -p path)" go test ./... -coverprofile cover.out
 
-test-e2e:
+.PHONE: test-e2e
+test-e2e: ## Run e2e tests.
+	./scripts/test-e2e.sh
+
+.PHONE: kind-load
+kind-load: ## Load docker image into kind cluster
+	kind load docker-image ${IMG} --name ${KIND_CLUSTER_NAME}
+
+.PHONY: test-e2e-dev
+test-e2e-dev: docker-build kind-load ## Run e2e tests with build and load image into kind cluster.
 	./scripts/test-e2e.sh
 
 GOLANGCI_LINT = $(shell pwd)/bin/golangci-lint
