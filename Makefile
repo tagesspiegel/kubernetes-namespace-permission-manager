@@ -77,6 +77,13 @@ kind-load: ## Load docker image into kind cluster
 test-e2e-dev: docker-build kind-load ## Run e2e tests with build and load image into kind cluster.
 	./scripts/test-e2e.sh
 
+.PHONE: logs
+logs: ## Show logs of the manager pod.
+	kubectl -n kubernetes-namespace-permission-manager-system logs --tail 100 -f -l control-plane=controller-manager
+
+.PHONE: dev-run
+dev-run: docker-build kind-load install deploy logs ## Build and deploy container to kind cluster and show logs.
+
 GOLANGCI_LINT = $(shell pwd)/bin/golangci-lint
 GOLANGCI_LINT_VERSION ?= v1.54.2
 golangci-lint:
