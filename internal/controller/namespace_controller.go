@@ -21,6 +21,7 @@ import (
 
 	corev1 "k8s.io/api/core/v1"
 	rbacv1 "k8s.io/api/rbac/v1"
+	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/builder"
@@ -53,9 +54,20 @@ func (r *NamespaceReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 
 	ns := &corev1.Namespace{}
 	err := r.Client.Get(ctx, req.NamespacedName, ns)
-	if err != nil {
+	if err != nil && !errors.IsNotFound(err) {
 		logx.Error(err, "unable to fetch Namespace")
 		return ctrl.Result{}, client.IgnoreNotFound(err)
+	}
+	if errors.IsNotFound(err) {
+		logx.V(100).Info("namespace not found, ignoring")
+		return ctrl.Result{}, nil
+	}
+
+	// check for namespace health
+	if ns.Status.Phase != corev1.NamespaceActive {
+		// we only care about active namespaces for now
+		logx.V(100).Info("namespace not active, ignoring")
+		return ctrl.Result{}, nil
 	}
 
 	// check if the namespace has our label
