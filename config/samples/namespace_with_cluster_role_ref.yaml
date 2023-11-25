@@ -1,0 +1,21 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: namespace-admin
+rules:
+- apiGroups:
+  - "*"
+  resources:
+  - "*"
+  verbs:
+  - "*"
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: with-cluster-role-ref
+  labels:
+    ns.tagesspiegel.de/permission-control: "manage"
+  annotations:
+    ns.tagesspiegel.de/rolebinding-subjects: kind=ServiceAccount;name=default,kind=User;name=default,kind=Group;name=default
+    ns.tagesspiegel.de/rolebinding-roleref: kind=ClusterRole;apiGroup=rbac.authorization.k8s.io;name=namespace-admin
