@@ -73,6 +73,9 @@ test-e2e: ## Run e2e tests.
 kind-load: ## Load docker image into kind cluster
 	kind load docker-image ${IMG} --name ${KIND_CLUSTER_NAME}
 
+.PHONY: dev
+dev: docker-build kind-load install deploy ## Build and deploy container to kind cluster.
+
 .PHONY: test-e2e-dev
 test-e2e-dev: docker-build kind-load ## Run e2e tests with build and load image into kind cluster.
 	./scripts/test-e2e.sh
