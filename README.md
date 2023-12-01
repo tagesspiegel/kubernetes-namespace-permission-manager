@@ -18,6 +18,30 @@ Since these annotations are not in charge of instrumenting the controller to lis
 |---|---|
 | `ns.tagesspiegel.de/permission-control` | The value of this label is not important. It is just used to identify the namespaces that should be managed by the controller. |
 
+## Installation
+
+### Using Helm
+
+We recommend using [Helm](https://helm.sh/) to install the controller. We at Tagesspiegel provide a versioned Helm Chart for this controller. You can find the Helm Chart [here](https://github.com/tagesspiegel/helm-charts/tree/main/charts/namespace-permission-manager). In order to install the controller using Helm, you can run the following command:
+
+```bash
+helm repo add tagesspiegel https://tagesspiegel.github.io/helm-charts
+helm upgrade --install my-name tagesspiegel/namespace-permission-manager
+```
+
+For more information about the Helm Chart, please visit the [Helm Chart repository](https://github.com/tagesspiegel/helm-charts/tree/main/charts/namespace-permission-manager).
+
+### Kustomize
+
+Since this repository is using [Kubebuilder](https://github.com/kubernetes-sigs/kubebuilder) to bootstrap the controller, you can also use [Kustomize](https://kustomize.io/) to install the controller. Please keep in mind that the Kustomize files might include breaking changes, since they are not part of the release process.
+
+In order to install the controller using Kustomize, you can run the following command:
+
+```bash
+export IMG=tagesspiegel/kubernetes-namespace-permission-manager:<version>
+make deploy
+```
+
 ## Getting Started
 
 ### Prerequisites
