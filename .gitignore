@@ -26,3 +26,6 @@ Dockerfile.cross
 *~
 
 .envrc
+
+# ignore generated manifest files
+generated/
