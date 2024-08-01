@@ -21,7 +21,7 @@ on:
       - "!dependabot/**"
 
 env:
-  go_version: '1.21'
+  go_version: '1.22'
   artifact_name: kubernetes-namespace-permission-manager
   artifact_bin_name: kubebuilder
   IMG: tagesspiegel/kubernetes-namespace-permission-manager:dev
