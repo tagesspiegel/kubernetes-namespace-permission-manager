@@ -104,7 +104,7 @@ jobs:
           make kustomize controller-gen envtest
 
       - name: Upload bin directory
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.artifact_bin_name }}
           path: bin/
@@ -131,7 +131,7 @@ jobs:
           make docker-save
 
       - name: Upload image
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.artifact_name }}
           path: manager.tar
